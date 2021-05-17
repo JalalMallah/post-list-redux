@@ -1,7 +1,15 @@
+import PostForm from 'components/PostForm';
+import PostList from 'components/PostList';
+
 import 'styles/global.scss';
 
 function App() {
-  return <h1>Hola, mundo! 👋😃</h1>;
+  return (
+    <>
+      <PostForm />
+      <PostList />
+    </>
+  );
 }
 
 export default App;
