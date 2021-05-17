@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addPost } from 'redux/actions/postActions';
 
 import * as styles from 'styles/postForm.module.scss';
 
-const url = 'https://jsonplaceholder.typicode.com/posts';
-
-const PostForm = () => {
+const PostForm = ({ addPost }) => {
   const [body, setBody] = useState('');
   const [title, setTitle] = useState('');
 
@@ -25,20 +26,7 @@ const PostForm = () => {
       body,
     };
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(post),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    addPost(post);
 
     setBody('');
     setTitle('');
@@ -60,4 +48,8 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default connect(null, { addPost })(PostForm);
+
+PostForm.propTypes = {
+  addPost: PropTypes.func.isRequired,
+};

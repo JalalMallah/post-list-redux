@@ -12,6 +12,11 @@ function postReducer(state = initialState, action) {
         ...state,
         items: action.payload,
       };
+    case ADD_POST:
+      return {
+        ...state,
+        item: action.payload,
+      };
     default:
       return state;
   }

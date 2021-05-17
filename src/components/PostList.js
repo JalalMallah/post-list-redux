@@ -7,10 +7,14 @@ import PostItem from 'components/PostItem';
 
 import * as styles from 'styles/postList.module.scss';
 
-const PostList = ({ fetchPosts, posts }) => {
+const PostList = ({ fetchPosts, newPost, posts }) => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    posts.unshift(newPost);
+  });
 
   const postItems = posts.map(post => <PostItem key={post.id} {...post} />);
 
@@ -23,6 +27,7 @@ const PostList = ({ fetchPosts, posts }) => {
 
 const mapStateToProps = state => ({
   posts: state.posts.items,
+  newPost: state.posts.item,
 });
 
 export default connect(mapStateToProps, { fetchPosts })(PostList);
@@ -30,4 +35,5 @@ export default connect(mapStateToProps, { fetchPosts })(PostList);
 PostList.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newPost: PropTypes.object.isRequired,
 };
