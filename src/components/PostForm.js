@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addPost } from 'redux/actions/postActions';
 
 import * as styles from 'styles/postForm.module.scss';
 
-const PostForm = ({ addPost }) => {
+const PostForm = () => {
   const [body, setBody] = useState('');
   const [title, setTitle] = useState('');
+
+  const dispatch = useDispatch();
 
   function handleBodyChange(e) {
     setBody(e.target.value);
@@ -26,7 +28,7 @@ const PostForm = ({ addPost }) => {
       body,
     };
 
-    addPost(post);
+    dispatch(addPost(post));
 
     setBody('');
     setTitle('');
@@ -48,8 +50,8 @@ const PostForm = ({ addPost }) => {
   );
 };
 
-export default connect(null, { addPost })(PostForm);
-
 PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
 };
+
+export default PostForm;

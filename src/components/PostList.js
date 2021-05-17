@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from 'redux/actions/postActions';
 
 import PostItem from 'components/PostItem';
 
 import * as styles from 'styles/postList.module.scss';
 
-const PostList = ({ fetchPosts, newPost, posts }) => {
+const PostList = () => {
+  const dispatch = useDispatch();
+  const posts = useSelector(store => store.posts.items);
+  const newPost = useSelector(store => store.posts.item);
+
   useEffect(() => {
-    fetchPosts();
+    dispatch(fetchPosts());
   }, []);
 
   useEffect(() => {
@@ -25,15 +29,10 @@ const PostList = ({ fetchPosts, newPost, posts }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  posts: state.posts.items,
-  newPost: state.posts.item,
-});
-
-export default connect(mapStateToProps, { fetchPosts })(PostList);
-
 PostList.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   newPost: PropTypes.object.isRequired,
 };
+
+export default PostList;
