@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchPosts } from 'redux/actions/postActions';
 
 import PostItem from 'components/PostItem';
 
 import * as styles from 'styles/postList.module.scss';
 
-const url = 'https://jsonplaceholder.typicode.com/posts';
-
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
-
+const PostList = ({ fetchPosts, posts }) => {
   useEffect(() => {
-    getPosts();
+    fetchPosts();
   }, []);
-
-  async function getPosts() {
-    const res = await fetch(url);
-    const data = await res.json();
-    setPosts(data);
-  }
 
   const postItems = posts.map(post => <PostItem key={post.id} {...post} />);
 
@@ -28,4 +21,13 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+const mapStateToProps = state => ({
+  posts: state.posts.items,
+});
+
+export default connect(mapStateToProps, { fetchPosts })(PostList);
+
+PostList.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
