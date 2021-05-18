@@ -1,22 +1,11 @@
 import { ADD_POST, FETCH_POSTS } from '../actions/types';
 
-const initialState = {
-  items: [],
-  item: {},
-};
-
-function postReducer(state = initialState, action) {
+function postReducer(state = [], action) {
   switch (action.type) {
     case FETCH_POSTS:
-      return {
-        ...state,
-        items: action.payload,
-      };
+      return [...action.payload];
     case ADD_POST:
-      return {
-        ...state,
-        item: action.payload,
-      };
+      return [action.payload, ...state];
     default:
       return state;
   }

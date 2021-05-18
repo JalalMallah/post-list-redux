@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addPost } from 'redux/actions/postActions';
 
@@ -21,6 +20,7 @@ const PostForm = () => {
 
   function handleFormSubmit(e) {
     e.preventDefault();
+    console.log('submit form.');
     if (!body || !title) return;
 
     const post = {
@@ -48,10 +48,6 @@ const PostForm = () => {
       <button className={styles.submit}>Add post</button>
     </form>
   );
-};
-
-PostForm.propTypes = {
-  addPost: PropTypes.func.isRequired,
 };
 
 export default PostForm;
