@@ -59,3 +59,8 @@ a:hover::after,
 a:focus::after {
   transform: scale(1, 1);
 }
+
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}

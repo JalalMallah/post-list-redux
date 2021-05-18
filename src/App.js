@@ -9,8 +9,10 @@ import 'styles/global.scss';
 function App() {
   return (
     <Provider store={store}>
-      <PostForm />
-      <PostList />
+      <div className='wrapper'>
+        <PostForm />
+        <PostList />
+      </div>
     </Provider>
   );
 }
